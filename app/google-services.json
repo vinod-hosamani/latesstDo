@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "842271521490",
+    "firebase_url": "https://vndtodo-c19ac.firebaseio.com",
+    "project_id": "vndtodo-c19ac",
+    "storage_bucket": "vndtodo-c19ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842271521490:android:fd4979fe19964d90",
+        "android_client_info": {
+          "package_name": "com.example.client1.vndtodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842271521490-34daakensdqsmdiu3dntlm28am9ue8ve.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsaOTNw-ShZvuX7WFRo0resaPsHKRvW7g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

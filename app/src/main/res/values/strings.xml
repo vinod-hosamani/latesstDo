@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">VndToDo</string>
+    <string name="register_here">Register</string>
+    <string name="txtMobile">Mobile(Only 10 digit number)</string>
+    <string name="btnRegistration">Register</string>
+    <string name="txtCreateAcc">create an Account</string>
+    <string name="txtAlreadyAccount">Already have an account?(click here to Login)</string>
+    <string name="empty_field">you have to fill the required field</string>
+    <string name="invalid_name">please enter valid full name</string>
+    <string name="invalid_email">enter valid email id</string>
+    <string name="invalid_number">enter valid mobile number</string>
+    <string name="invalid_pass">password length must be  greater than 8 letters</string>
+    <string name="register_progress_dialog">Registering in progress...</string>
+    <string name="register_success">registered successfully</string>
+    <string name="no_internet">No internet connection</string>
+
+</resources>
