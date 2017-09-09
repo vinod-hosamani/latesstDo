@@ -1,13 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hi bro how arey"
-        android:textSize="21dp"
-        />
 
-</LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dimen_16"
+        android:layout_marginRight="@dimen/dimen_16"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_gravity="center"
+            android:src="@drawable/todologo" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/login_here"
+            android:textSize="@dimen/dimen_30" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10">
+
+            <!--Email Edit-->
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editViewEmailLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:hint="Enter your email id"
+                android:maxLines="1"
+               />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10">
+
+            <!--Password Edit-->
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editViewPassLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:hint="Enter your password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtForget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/editViewPassLogin"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@string/txtForget" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtForget"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:text="@string/btnLogin" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/txtCreateAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnLogin"
+            android:layout_alignBottom="@+id/btnLogin"
+            android:layout_toEndOf="@+id/txtForget"
+            android:layout_toRightOf="@+id/txtForget"
+            android:text="@string/txtCreateAcc" />
+
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/fb_login_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtCreateAccount"
+                android:layout_marginBottom="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:gravity="center_horizontal" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/google_sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/fb_login_button"
+                android:layout_marginLeft="@dimen/dimen_30"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:layout_toEndOf="@+id/fb_login_button"
+                android:layout_toRightOf="@+id/fb_login_button" />
+
+        </LinearLayout>-->
+
+    </LinearLayout>
+</ScrollView>

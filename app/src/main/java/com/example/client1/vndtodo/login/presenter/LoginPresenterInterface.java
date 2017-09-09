@@ -1,6 +1,4 @@
-package com.example.client1.vndtodo.login.ui;
-
-import android.view.View;
+package com.example.client1.vndtodo.login.presenter;
 
 import com.example.client1.vndtodo.registration.model.UserModel;
 
@@ -8,8 +6,10 @@ import com.example.client1.vndtodo.registration.model.UserModel;
  * Created by client1 on 9/9/2017.
  */
 
-public interface LoginActivityInterface  extends  View.OnClickListener, View.OnFocusChangeListener
+public interface LoginPresenterInterface
 {
+    void getLoginResponseFromFirebase(String email, String password);
+
     void loginSuccess(UserModel model, String profilePic);
     void loginFailure(String message);
     void showDialog(String message);

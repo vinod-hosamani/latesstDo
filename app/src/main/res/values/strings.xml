@@ -13,5 +13,8 @@
     <string name="register_progress_dialog">Registering in progress...</string>
     <string name="register_success">registered successfully</string>
     <string name="no_internet">No internet connection</string>
-
+    <string name="login_here">Login</string>
+    <string name="txtForget">Forget Password?</string>
+    <string name="btnLogin">Login</string>
+    <string name="login_progress_dialog">logging in...</string>
 </resources>

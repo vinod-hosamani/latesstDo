@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
      <activity android:name=".login.ui.LoginActivity"/>
+        <activity android:name=".homescreen.ui.activity.HomeScreenActivity"/>
     </application>
 
 </manifest>
