@@ -31,4 +31,11 @@
     <string name="updating">updating</string>
     <string name="update_success">data updated...</string>
     <string name="update_failure">can not update data</string>
+    <string name="moving_to_trash_fail">moving to trash fail</string>
+    <string name="moving_to_archieve">moving to archive</string>
+    <string name="moving_to_archieve_success">moving to archive success</string>
+    <string name="moving_to_archieve_fail">moving to archive fail</string>
+    <string name="moving_to_note">moving to note</string>
+    <string name="moving_to_note_success">moving to note success</string>
+    <string name="moving_to_note_fail">moving to note fail</string>
 </resources>

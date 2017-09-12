@@ -28,7 +28,7 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
     OnNoteClickListener noteClickListener;
     OnLongClickListener longClickListener;
 
-    public TodoItemAdapter(Context context,OnNoteClickListener noteClickListener,OnLongClickListener longClickListener)
+    public TodoItemAdapter(OnNoteClickListener noteClickListener,OnLongClickListener longClickListener)
     {
         todoList=new ArrayList<>();
         this.noteClickListener=noteClickListener;
@@ -97,6 +97,11 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
             cardViewTodo = (CardView) view.findViewById(R.id.cardView_todo_note);
         }
     }
+    public ToDoItemModel getItemModel(int pos)
+    {
+        return todoList.get(pos);
+    }
+
 
     public List<ToDoItemModel> getAllDataList()
     {

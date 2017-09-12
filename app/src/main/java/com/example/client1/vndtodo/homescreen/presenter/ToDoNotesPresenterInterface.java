@@ -16,4 +16,17 @@ public interface ToDoNotesPresenterInterface
     void showDialog(String message);
     void hideDialog();
 
+    void moveToTrash(ToDoItemModel itemModel);
+    void moveToArchieve(ToDoItemModel itemModel);
+    void moveToNotes(ToDoItemModel itemModel,boolean flagForDelete);
+
+    void moveToTrashSuccess(String message);
+    void moveToTrashFailure(String message);
+
+    void moveToArchiveSuccess(String message);
+    void moveToArchiveFailure(String message);
+
+    void moveToNotesSuccess(String message);
+    void moveToNotesFailure(String message);
+
 }

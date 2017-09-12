@@ -26,6 +26,8 @@ import com.example.client1.vndtodo.homescreen.presenter.ToDoNotesPresenter;
 import com.example.client1.vndtodo.homescreen.presenter.ToDoNotesPresenterInterface;
 import com.example.client1.vndtodo.homescreen.ui.activity.HomeScreenActivity;
 import com.example.client1.vndtodo.session.SharedPreferenceManager;
+import com.example.client1.vndtodo.util.Connectivity;
+import com.example.client1.vndtodo.util.SwipeNotes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,17 +38,17 @@ import java.util.List;
  * Created by client1 on 9/11/2017.
  */
 
-public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface,TodoItemAdapter.OnLongClickListener
-{
+public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface, TodoItemAdapter.OnLongClickListener {
+
     HomeScreenActivity homeScreenActivity;
-    ToDoNotesPresenterInterface presenter;
+     public ToDoNotesPresenter presenter;
     SharedPreferenceManager session;
     List<ToDoItemModel> allData;
     TodoItemAdapter todoItemAdapter;
     boolean isList;
     RecyclerView toDoItemRecycler;
     StaggeredGridLayoutManager mStaggeredGridLayoutManager;
-    //SwipeNotes swipeNotes;
+    SwipeNotes swipeNotes;
     ItemTouchHelper itemTouchHelper;
     Menu menu;
     ProgressDialog progressDialog;
@@ -55,16 +57,16 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     List<ToDoItemModel> actionList;
 
 
-    public ToDoNotesFragment(HomeScreenActivity homeScreenActivity)
-    {
+    public ToDoNotesFragment(HomeScreenActivity homeScreenActivity) {
         this.homeScreenActivity = homeScreenActivity;
         actionList = new ArrayList<>();
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view=inflater.inflate(R.layout.content_home_screen,container,false);
+        View view = inflater.inflate(R.layout.content_home_screen, container, false);
         initView(view);
         homeScreenActivity.setTitle(Constant.note_title);
         setHasOptionsMenu(true);
@@ -72,18 +74,26 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
         allData = todoItemAdapter.getAllDataList();
         return view;
     }
-    public void initView(View view)
-    {
+
+    public void initView(View view) {
         toDoItemRecycler = (RecyclerView) view.findViewById(R.id.recycler_todo_item);
-        todoItemAdapter = new TodoItemAdapter(homeScreenActivity, this, this);
+        todoItemAdapter = new TodoItemAdapter(this, this);
 
         session = new SharedPreferenceManager(homeScreenActivity);
         isList = session.isList();
         presenter = new ToDoNotesPresenter(homeScreenActivity, this);
 
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL);
+        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         toDoItemRecycler.setLayoutManager(mStaggeredGridLayoutManager);
         toDoItemRecycler.setAdapter(todoItemAdapter);
+
+        if (Connectivity.isNetworkConnected(homeScreenActivity))
+        {
+            swipeNotes = new SwipeNotes(SwipeNotes.up | SwipeNotes.down | SwipeNotes.left | SwipeNotes.right, SwipeNotes.left | SwipeNotes.right, todoItemAdapter,
+                    ToDoNotesFragment.this,getActivity());
+            itemTouchHelper = new ItemTouchHelper(swipeNotes);
+            itemTouchHelper.attachToRecyclerView(toDoItemRecycler);
+        }
 
     }
 
@@ -104,29 +114,23 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if (item.getItemId() == R.id.action_toggle)
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_toggle) {
             toggle();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void toggle()
-    {
+    private void toggle() {
         MenuItem item = menu.findItem(R.id.action_toggle);
 
-        if (isList)
-        {
+        if (isList) {
             mStaggeredGridLayoutManager.setSpanCount(1);
             item.setIcon(R.drawable.ic_action_grid);
             item.setTitle("Show as grid");
             session.setView(isList);
-        }
-        else
-        {
+        } else {
             mStaggeredGridLayoutManager.setSpanCount(2);
             item.setIcon(R.drawable.ic_action_list);
             item.setTitle("Show as list");
@@ -134,22 +138,20 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
         }
         isList = !isList;
     }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
     @Override
-    public boolean onQueryTextChange(String searchText)
-    {
+    public boolean onQueryTextChange(String searchText) {
         searchText = searchText.toLowerCase();
 
         List<ToDoItemModel> noteList = new ArrayList<>();
 
-        for (ToDoItemModel model : allData)
-        {
-            if (model.getTitle().toLowerCase().contains(searchText))
-            {
+        for (ToDoItemModel model : allData) {
+            if (model.getTitle().toLowerCase().contains(searchText)) {
                 noteList.add(model);
             }
         }
@@ -164,20 +166,16 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     }
 
     @Override
-    public void getNoteSuccess(List<ToDoItemModel> noteList)
-    {
+    public void getNoteSuccess(List<ToDoItemModel> noteList) {
         List<ToDoItemModel> nonArchievedList = new ArrayList<>();
 
-        for (ToDoItemModel model : noteList)
-        {
-            if (!model.isArchieved() && !model.isDeleted())
-            {
+        for (ToDoItemModel model : noteList) {
+            if (!model.isArchieved() && !model.isDeleted()) {
                 nonArchievedList.add(model);
             }
         }
 
         todoItemAdapter.setTodoList(nonArchievedList);
-
     }
 
     @Override
@@ -187,8 +185,7 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
 
     @Override
     public void showDialog(String message) {
-        if (!homeScreenActivity.isFinishing())
-        {
+        if (!homeScreenActivity.isFinishing()) {
             progressDialog = new ProgressDialog(homeScreenActivity);
             progressDialog.setMessage(message);
             progressDialog.show();
@@ -197,10 +194,39 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
 
     @Override
     public void hideDialog() {
-        if (!homeScreenActivity.isFinishing() && progressDialog != null)
-        {
+        if (!homeScreenActivity.isFinishing() && progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void moveToTrashSuccess(String message) {
+
+    }
+
+    @Override
+    public void moveToTrashFailure(String message) {
+
+    }
+
+    @Override
+    public void moveToArchiveSuccess(String message) {
+
+    }
+
+    @Override
+    public void moveToArchiveFailure(String message) {
+
+    }
+
+    @Override
+    public void moveToNotesSuccess(String message) {
+
+    }
+
+    @Override
+    public void moveToNotesFailure(String message) {
+
     }
 
     @Override

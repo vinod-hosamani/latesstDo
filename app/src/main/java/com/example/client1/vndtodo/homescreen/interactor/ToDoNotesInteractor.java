@@ -7,6 +7,7 @@ import com.example.client1.vndtodo.constants.Constant;
 import com.example.client1.vndtodo.homescreen.model.ToDoItemModel;
 import com.example.client1.vndtodo.homescreen.presenter.ToDoNotesPresenterInterface;
 import com.example.client1.vndtodo.util.Connectivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference todoDataReference;
     ToDoItemModel itemModel;
+    String userId;
 
     public ToDoNotesInteractor(Context context, ToDoNotesPresenterInterface presenter)
     {
@@ -37,6 +39,7 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
         this.presenter = presenter;
         firebaseDatabase = FirebaseDatabase.getInstance();
         todoDataReference = firebaseDatabase.getReference(Constant.key_firebase_todo);
+        userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -80,7 +83,70 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
         }
     }
 
+    @Override
+    public void moveToTrash(ToDoItemModel itemModel) {
+        presenter.showDialog("moving_to_trash");
 
+        if (Connectivity.isNetworkConnected(context)) {
+            todoDataReference.child(userId).child(itemModel.getStartDate())
+                    .child(String.valueOf(itemModel.getNoteId()))
+                    .child("deleted").setValue(true);
+
+            presenter.moveToTrashSuccess("moving_to_trash_success");
+            presenter.hideDialog();
+
+        } else {
+            presenter.moveToTrashFailure(context.getString(R.string.no_internet) + "\n"
+                    + context.getString(R.string.moving_to_trash_fail));
+            presenter.hideDialog();
+        }
+
+    }
+
+    @Override
+    public void moveToArchieve(ToDoItemModel itemModel) {
+        presenter.showDialog(context.getString(R.string.moving_to_archieve));
+
+        if (Connectivity.isNetworkConnected(context)) {
+            todoDataReference.child(userId).child(itemModel.getStartDate())
+                    .child(String.valueOf(itemModel.getNoteId()))
+                    .child("archieved").setValue(true);
+
+            presenter.moveToArchiveSuccess(context.getString(R.string.moving_to_archieve_success));
+            presenter.hideDialog();
+
+        } else {
+            presenter.moveToArchiveFailure(context.getString(R.string.no_internet) + "\n"
+                    + context.getString(R.string.moving_to_archieve_fail));
+            presenter.hideDialog();
+        }
+
+    }
+
+    @Override
+    public void moveToNotes(ToDoItemModel itemModel, boolean flagForDelete) {
+        presenter.showDialog(context.getString(R.string.moving_to_note));
+
+        if (Connectivity.isNetworkConnected(context)) {
+            if (flagForDelete) {
+                todoDataReference.child(userId).child(itemModel.getStartDate())
+                        .child(String.valueOf(itemModel.getNoteId()))
+                        .child("deleted").setValue(false);
+            } else {
+                todoDataReference.child(userId).child(itemModel.getStartDate())
+                        .child(String.valueOf(itemModel.getNoteId()))
+                        .child("archieved").setValue(false);
+
+            }
+            presenter.moveToNotesSuccess(context.getString(R.string.moving_to_note_success));
+            presenter.hideDialog();
+
+        } else {
+            presenter.moveToNotesFailure(context.getString(R.string.no_internet) + "\n"
+                    + context.getString(R.string.moving_to_note_fail));
+            presenter.hideDialog();
+        }
+    }
 
 
 }

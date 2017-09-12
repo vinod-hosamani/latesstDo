@@ -47,4 +47,49 @@ public class ToDoNotesPresenter implements ToDoNotesPresenterInterface {
     public void hideDialog() {
         viewInterface.hideDialog();
     }
+
+    @Override
+    public void moveToTrash(ToDoItemModel itemModel) {
+     interactor.moveToTrash(itemModel);
+    }
+
+    @Override
+    public void moveToArchieve(ToDoItemModel itemModel) {
+ interactor.moveToArchieve(itemModel);
+    }
+
+    @Override
+    public void moveToNotes(ToDoItemModel itemModel, boolean flagForDelete) {
+interactor.moveToNotes(itemModel, flagForDelete);
+    }
+
+    @Override
+    public void moveToTrashSuccess(String message) {
+        viewInterface.moveToTrashSuccess(message);
+    }
+
+    @Override
+    public void moveToTrashFailure(String message) {
+viewInterface.moveToTrashFailure(message);
+    }
+
+    @Override
+    public void moveToArchiveSuccess(String message) {
+viewInterface.moveToArchiveSuccess(message);
+    }
+
+    @Override
+    public void moveToArchiveFailure(String message) {
+viewInterface.moveToArchiveFailure(message);
+    }
+
+    @Override
+    public void moveToNotesSuccess(String message) {
+        viewInterface.moveToNotesSuccess(message);
+    }
+
+    @Override
+    public void moveToNotesFailure(String message) {
+viewInterface.moveToNotesFailure(message);
+    }
 }

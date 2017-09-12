@@ -17,4 +17,13 @@ public interface ToDoNotesFragmentInterface extends TodoItemAdapter.OnNoteClickL
     void getNoteFailure(String message);
     void showDialog(String message);
     void hideDialog();
+
+    void moveToTrashSuccess(String message);
+    void moveToTrashFailure(String message);
+
+    void moveToArchiveSuccess(String message);
+    void moveToArchiveFailure(String message);
+
+    void moveToNotesSuccess(String message);
+    void moveToNotesFailure(String message);
 }
