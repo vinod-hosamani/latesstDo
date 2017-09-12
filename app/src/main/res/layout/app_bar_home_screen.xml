@@ -30,4 +30,12 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <FrameLayout
+        android:id="@+id/todo_item_fragment"
+        android:layout_width="match_parent"
+        android:layout_marginTop="59dp"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>

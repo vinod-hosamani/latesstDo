@@ -1,6 +1,8 @@
 package com.example.client1.vndtodo.homescreen.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,33 +15,81 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.client1.vndtodo.R;
+import com.example.client1.vndtodo.addNote.ui.AddToDoNoteActivity;
+import com.example.client1.vndtodo.constants.Constant;
+import com.example.client1.vndtodo.homescreen.presenter.HomeScreenPresenter;
+import com.example.client1.vndtodo.homescreen.ui.fragment.ArchievedFragment;
+import com.example.client1.vndtodo.homescreen.ui.fragment.ReminderFragment;
+import com.example.client1.vndtodo.homescreen.ui.fragment.ToDoNotesFragment;
+import com.example.client1.vndtodo.homescreen.ui.fragment.TrashFragment;
+import com.example.client1.vndtodo.session.SharedPreferenceManager;
+
 public class HomeScreenActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements HomeScreenActivityInterface{
+
+    Toolbar toolbar;
+    FloatingActionButton fab;
+    DrawerLayout drawer;
+    ActionBarDrawerToggle toggle;
+    NavigationView navigationView;
+
+
+    ArchievedFragment archievedFragment;
+    TrashFragment trashFragment;
+    ReminderFragment reminderFragment;
+    ToDoNotesFragment toDoNotesFragment;
+
+    SharedPreferenceManager session;
+    public HomeScreenPresenter presenter;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        initView();
+        setListener();
+
+        toDoNotesFragment = new ToDoNotesFragment(this);
+        setTitle(Constant.note_title);
+        fab.setVisibility(View.VISIBLE);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.todo_item_fragment, toDoNotesFragment, "todoNoteList")
+                .addToBackStack(null)
+                .commit();
+
+    }
+    public void initView()
+    {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        session = new SharedPreferenceManager(this);
+        presenter = new HomeScreenPresenter(this, this);
+    }
+
+    public void setListener()
+    {
         setSupportActionBar(toolbar);
+        fab.setOnClickListener(this);
+        fab.setVisibility(View.VISIBLE);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+
     }
 
     @Override
@@ -80,22 +130,110 @@ public class HomeScreenActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        archievedFragment = new ArchievedFragment(this);
+        reminderFragment=new ReminderFragment(this);
+        trashFragment=new TrashFragment(this);
 
-        } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_notes) {
 
-        } else if (id == R.id.nav_share) {
+            setTitle(Constant.note_title);
 
-        } else if (id == R.id.nav_send) {
+            fab.setVisibility(View.VISIBLE);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.todo_item_fragment, toDoNotesFragment, "todoNoteList")
+                    .addToBackStack(null)
+                    .commit();
 
         }
+        else if (id == R.id.nav_archieved)
+        {
+            setTitle(Constant.archieve_title);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            fab.setVisibility(View.INVISIBLE);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.todo_item_fragment, archievedFragment, "archievedList")
+                    .addToBackStack(null)
+                    .commit();
+
+        }
+        else if (id == R.id.nav_reminder)
+        {
+            setTitle(Constant.reminder_title);
+
+            fab.setVisibility(View.INVISIBLE);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.todo_item_fragment, reminderFragment, "reminderList")
+                    .addToBackStack(null)
+                    .commit();
+
+
+        } else if (id == R.id.nav_trash) {
+            setTitle(Constant.trash_title);
+
+            fab.setVisibility(View.INVISIBLE);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.todo_item_fragment, trashFragment, "TrashDataList")
+                    .addToBackStack(null)
+                    .commit();
+
+        } else if (id == R.id.nav_logout) {
+
+        } /*else if (id == R.id.nav_send) {
+
+        }*/
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        switch (view.getId()) {
+            case R.id.fab:
+                AddToDoNoteActivity.add = true;
+                Intent intent = new Intent(this, AddToDoNoteActivity.class);
+                startActivity(intent);
+                // TODO: 16/6/17 fragment commented
+                /*addTodoTask();*/
+                break;
+
+
+        }
+    }
+
+    @Override
+    public void showDialog(String message) {
+
+    }
+
+    @Override
+    public void hideDialog() {
+
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @Override
+    public void onColorSelected(int dialogId, @ColorInt int color) {
+
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
+
     }
 }

@@ -25,4 +25,10 @@ public class Constant {
             "\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}" +
             "\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
     public static final String key_firebase_user = "users";
+    public static final String note_title = "Notes";
+    public static final String key_firebase_todo = "todoData";
+    public static final String archieve_title = "Archieves";
+    public static final String reminder_title = "Reminders";
+    public static final String trash_title = "Trash";
+    public static final String key_view_type = "isList";
 }

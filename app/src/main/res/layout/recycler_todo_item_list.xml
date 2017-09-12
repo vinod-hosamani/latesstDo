@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/dimen_5"
+    android:paddingLeft="@dimen/dimen_5"
+    android:paddingRight="@dimen/dimen_5"
+    android:paddingTop="@dimen/dimen_5">
+
+    <LinearLayout
+        android:id="@+id/linearLayout_for_border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dimen_3"
+        android:paddingLeft="@dimen/dimen_3"
+        android:paddingRight="@dimen/dimen_3"
+        android:paddingTop="@dimen/dimen_3">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_todo_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout_todo_background"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_5">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/todo_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/todo_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/todo_reminder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</LinearLayout>

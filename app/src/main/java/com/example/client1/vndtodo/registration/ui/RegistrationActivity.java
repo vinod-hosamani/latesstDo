@@ -45,7 +45,8 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     }
 
-    public void initView() {
+    public void initView()
+    {
         presenter = new RegistrationPresenter(this, this);
         txtAlreadyAcc = (AppCompatTextView) findViewById(R.id.txtAlreadyAccount);
 
@@ -64,16 +65,19 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     }
 
-    public void setListener() {
+    public void setListener()
+    {
         txtAlreadyAcc.setOnClickListener(this);
         btnRegistration.setOnClickListener(this);
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(View view)
+    {
         Intent intent = new Intent(this, LoginActivity.class);
 
-        switch (view.getId()) {
+        switch (view.getId())
+        {
             case R.id.btnRegistration:
                 userModel = new UserModel();
                 userModel.setFullname(editTextFullname.getText().toString());

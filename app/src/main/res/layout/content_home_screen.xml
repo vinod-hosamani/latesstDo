@@ -8,4 +8,12 @@
     tools:context="com.example.client1.vndtodo.homescreen.ui.activity.HomeScreenActivity"
     tools:showIn="@layout/app_bar_home_screen">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_todo_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:clickable="true"
+        android:scrollbars="vertical" />
+
 </android.support.constraint.ConstraintLayout>
