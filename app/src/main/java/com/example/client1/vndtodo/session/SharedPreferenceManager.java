@@ -21,7 +21,8 @@ public class SharedPreferenceManager
     public SharedPreferenceManager(Context context)
     {
         this.context = context;
-        if (userDataPref == null && userEditor == null) {
+        if (userDataPref == null && userEditor == null)
+        {
             userDataPref = this.context.getSharedPreferences(Constant.user_pref_name, MODE_PRIVATE);
             userEditor = userDataPref.edit();
         }
@@ -48,11 +49,13 @@ public class SharedPreferenceManager
         user.setId(userDataPref.getString(Constant.key_id, Constant.empty_value));
         return user;
     }
-    public void setView(boolean isList) {
+    public void setView(boolean isList)
+    {
         userEditor.putBoolean(Constant.key_view_type, isList);
         userEditor.commit();
     }
-    public boolean isList() {
-        return userDataPref.getBoolean(Constant.key_view_type, true);
+    public boolean isList()
+    {
+        return userDataPref.getBoolean(Constant.key_view_type,true);
     }
 }

@@ -38,10 +38,10 @@ import java.util.List;
  * Created by client1 on 9/11/2017.
  */
 
-public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface, TodoItemAdapter.OnLongClickListener {
-
+public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface, TodoItemAdapter.OnLongClickListener
+{
     HomeScreenActivity homeScreenActivity;
-     public ToDoNotesPresenter presenter;
+    public ToDoNotesPresenter presenter;
     SharedPreferenceManager session;
     List<ToDoItemModel> allData;
     TodoItemAdapter todoItemAdapter;
@@ -89,23 +89,21 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
 
         if (Connectivity.isNetworkConnected(homeScreenActivity))
         {
-            swipeNotes = new SwipeNotes(SwipeNotes.up | SwipeNotes.down | SwipeNotes.left | SwipeNotes.right, SwipeNotes.left | SwipeNotes.right, todoItemAdapter,
-                    ToDoNotesFragment.this,getActivity());
+            swipeNotes = new SwipeNotes(SwipeNotes.up | SwipeNotes.down | SwipeNotes.left | SwipeNotes.right,
+                    SwipeNotes.left | SwipeNotes.right, todoItemAdapter, ToDoNotesFragment.this, getActivity());
             itemTouchHelper = new ItemTouchHelper(swipeNotes);
             itemTouchHelper.attachToRecyclerView(toDoItemRecycler);
         }
-
     }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.menu_toolbar, menu);
         this.menu = menu;
-        toggle();
+        //toggle();
 
         SearchManager searchManager = (SearchManager) homeScreenActivity.getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        SearchView searchView = (SearchView) menu.findItem(R.id.searchNotes).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(homeScreenActivity.getComponentName()));
         searchView.setIconifiedByDefault(false);
         searchView.setOnQueryTextListener(this);
@@ -155,7 +153,6 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
                 noteList.add(model);
             }
         }
-
         todoItemAdapter.setFilter(noteList);
         return true;
     }
@@ -174,7 +171,6 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
                 nonArchievedList.add(model);
             }
         }
-
         todoItemAdapter.setTodoList(nonArchievedList);
     }
 
@@ -201,36 +197,35 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
 
     @Override
     public void moveToTrashSuccess(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void moveToTrashFailure(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void moveToArchiveSuccess(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void moveToArchiveFailure(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void moveToNotesSuccess(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void moveToNotesFailure(String message) {
-
+        Toast.makeText(homeScreenActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLongClick(ToDoItemModel itemModel) {
-
     }
 }

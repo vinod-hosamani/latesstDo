@@ -7,7 +7,7 @@
         android:title="Show as List"
         android:icon="@drawable/ic_action_list"/>-->
 
-    <item android:id="@+id/search"
+    <item android:id="@+id/searchNotes"
         android:title="search_title"
         android:icon="@drawable/ic_action_search"
         app:showAsAction="collapseActionView|ifRoom"

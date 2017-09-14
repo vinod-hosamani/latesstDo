@@ -26,7 +26,7 @@ import com.example.client1.vndtodo.homescreen.ui.fragment.TrashFragment;
 import com.example.client1.vndtodo.session.SharedPreferenceManager;
 
 public class HomeScreenActivity extends AppCompatActivity
-        implements HomeScreenActivityInterface{
+        implements HomeScreenActivityInterface {
 
     Toolbar toolbar;
     FloatingActionButton fab;
@@ -44,10 +44,8 @@ public class HomeScreenActivity extends AppCompatActivity
     public HomeScreenPresenter presenter;
 
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
         initView();
@@ -63,8 +61,8 @@ public class HomeScreenActivity extends AppCompatActivity
                 .commit();
 
     }
-    public void initView()
-    {
+
+    public void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,8 +72,7 @@ public class HomeScreenActivity extends AppCompatActivity
         presenter = new HomeScreenPresenter(this, this);
     }
 
-    public void setListener()
-    {
+    public void setListener() {
         setSupportActionBar(toolbar);
         fab.setOnClickListener(this);
         fab.setVisibility(View.VISIBLE);
@@ -87,9 +84,6 @@ public class HomeScreenActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
@@ -131,8 +125,8 @@ public class HomeScreenActivity extends AppCompatActivity
         int id = item.getItemId();
 
         archievedFragment = new ArchievedFragment(this);
-        reminderFragment=new ReminderFragment(this);
-        trashFragment=new TrashFragment(this);
+        reminderFragment = new ReminderFragment(this);
+        trashFragment = new TrashFragment(this);
 
 
         if (id == R.id.nav_notes) {
@@ -146,9 +140,7 @@ public class HomeScreenActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
 
-        }
-        else if (id == R.id.nav_archieved)
-        {
+        } else if (id == R.id.nav_archieved) {
             setTitle(Constant.archieve_title);
 
             fab.setVisibility(View.INVISIBLE);
@@ -158,9 +150,7 @@ public class HomeScreenActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
 
-        }
-        else if (id == R.id.nav_reminder)
-        {
+        } else if (id == R.id.nav_reminder) {
             setTitle(Constant.reminder_title);
 
             fab.setVisibility(View.INVISIBLE);
@@ -169,7 +159,6 @@ public class HomeScreenActivity extends AppCompatActivity
                     .replace(R.id.todo_item_fragment, reminderFragment, "reminderList")
                     .addToBackStack(null)
                     .commit();
-
 
         } else if (id == R.id.nav_trash) {
             setTitle(Constant.trash_title);
@@ -192,8 +181,7 @@ public class HomeScreenActivity extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View view)
-    {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fab:
                 AddToDoNoteActivity.add = true;
@@ -202,8 +190,6 @@ public class HomeScreenActivity extends AppCompatActivity
                 // TODO: 16/6/17 fragment commented
                 /*addTodoTask();*/
                 break;
-
-
         }
     }
 

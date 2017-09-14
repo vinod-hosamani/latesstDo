@@ -42,8 +42,6 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
         userId= FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
-
-
     @Override
     public void getTodoNoteFromServer( final String userId) {
         presenter.showDialog("loading");
@@ -56,20 +54,18 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
 
                     final List<ToDoItemModel> noteList = new ArrayList<>();
                     GenericTypeIndicator<ArrayList<ToDoItemModel>> t =
-                            new GenericTypeIndicator<ArrayList<ToDoItemModel>>() {
+                            new GenericTypeIndicator<ArrayList<ToDoItemModel>>()
+                            {
                             };
-                    for (DataSnapshot obj : dataSnapshot.child(userId).getChildren()) {
+                    for (DataSnapshot obj : dataSnapshot.child(userId).getChildren())
+                    {
                         List<ToDoItemModel> li;
                         li = obj.getValue(t);
                         noteList.addAll(li);
                     }
-
-
-
                     presenter.getNoteSuccess(noteList);
                     presenter.hideDialog();
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     presenter.getNoteFailure("some_error");
@@ -84,7 +80,8 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
     }
 
     @Override
-    public void moveToTrash(ToDoItemModel itemModel) {
+    public void moveToTrash(ToDoItemModel itemModel)
+    {
         presenter.showDialog("moving_to_trash");
 
         if (Connectivity.isNetworkConnected(context)) {
@@ -100,9 +97,7 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
                     + context.getString(R.string.moving_to_trash_fail));
             presenter.hideDialog();
         }
-
     }
-
     @Override
     public void moveToArchieve(ToDoItemModel itemModel) {
         presenter.showDialog(context.getString(R.string.moving_to_archieve));
@@ -120,9 +115,7 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
                     + context.getString(R.string.moving_to_archieve_fail));
             presenter.hideDialog();
         }
-
     }
-
     @Override
     public void moveToNotes(ToDoItemModel itemModel, boolean flagForDelete) {
         presenter.showDialog(context.getString(R.string.moving_to_note));
@@ -147,6 +140,4 @@ public class ToDoNotesInteractor implements ToDoNotesInteractorInterface {
             presenter.hideDialog();
         }
     }
-
-
 }

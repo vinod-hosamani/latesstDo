@@ -39,15 +39,12 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
     {
         this.context=context;
     }
-
-
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_todo_item_list,parent,false);
         return new TaskViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(TaskViewHolder holder, int position)
     {
@@ -63,14 +60,11 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
         {
             holder.reminderDate.setText("");
         }
-
     }
-
     @Override
     public int getItemCount() {
         return todoList.size();
     }
-
     public void setTodoList(List<ToDoItemModel> noteList)
     {
         todoList.clear();
@@ -78,7 +72,6 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
         todoList.addAll(noteList);
         notifyDataSetChanged();
     }
-
     public class TaskViewHolder extends RecyclerView.ViewHolder
     {
         public LinearLayout linearLayoutTodo, linearLayoutBorder;
@@ -101,8 +94,6 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
     {
         return todoList.get(pos);
     }
-
-
     public List<ToDoItemModel> getAllDataList()
     {
         return todoList;
@@ -114,7 +105,6 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
         todoList.addAll(noteList);
         notifyDataSetChanged();
     }
-
     public interface OnNoteClickListener
     {
        void onItemClick(int pos);
