@@ -26,7 +26,10 @@
         <activity
             android:name=".homescreen.ui.activity.HomeScreenActivity"
             android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+
+
+            />
         <activity android:name=".addNote.ui.AddToDoNoteActivity"
             android:theme="@style/AppTheme.NoActionBar"
             />

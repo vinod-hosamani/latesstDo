@@ -3,6 +3,7 @@ package com.example.client1.vndtodo.homescreen.ui.fragment;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.client1.vndtodo.R;
 import com.example.client1.vndtodo.adapter.TodoItemAdapter;
+import com.example.client1.vndtodo.addNote.ui.AddToDoNoteActivity;
 import com.example.client1.vndtodo.constants.Constant;
 import com.example.client1.vndtodo.homescreen.model.ToDoItemModel;
 import com.example.client1.vndtodo.homescreen.presenter.ToDoNotesPresenter;
@@ -38,7 +40,8 @@ import java.util.List;
  * Created by client1 on 9/11/2017.
  */
 
-public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface, TodoItemAdapter.OnLongClickListener
+public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInterface,
+        TodoItemAdapter.OnLongClickListener,TodoItemAdapter.OnNoteClickListener
 {
     HomeScreenActivity homeScreenActivity;
     public ToDoNotesPresenter presenter;
@@ -53,6 +56,7 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     Menu menu;
     ProgressDialog progressDialog;
 
+
     boolean isSelection;
     List<ToDoItemModel> actionList;
 
@@ -64,7 +68,8 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.content_home_screen, container, false);
         initView(view);
@@ -158,8 +163,24 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     }
 
     @Override
-    public void onItemClick(int pos) {
+    public void onItemClick(int pos)
+    {
+        ToDoItemModel model = todoItemAdapter.getItemModel(pos);
 
+        Bundle args = new Bundle();
+        args.putString(Constant.key_title, model.getTitle());
+        args.putString(Constant.key_note, model.getNote());
+        args.putString(Constant.key_reminder, model.getReminderDate());
+        args.putInt(Constant.key_note_id, model.getNoteId());
+        args.putString(Constant.key_startDate, model.getStartDate());
+        args.putInt(Constant.key_color, model.getColor());
+
+        AddToDoNoteActivity.add=false;
+        AddToDoNoteActivity.edit_pos=pos;
+
+        Intent intent = new Intent(homeScreenActivity, AddToDoNoteActivity.class);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 
     @Override
@@ -226,6 +247,7 @@ public class ToDoNotesFragment extends Fragment implements ToDoNotesFragmentInte
     }
 
     @Override
-    public void onLongClick(ToDoItemModel itemModel) {
+    public void onLongClick(ToDoItemModel itemModel)
+    {
     }
 }

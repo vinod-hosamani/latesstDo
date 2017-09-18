@@ -31,4 +31,9 @@ public class Constant {
     public static final String reminder_title = "Reminders";
     public static final String trash_title = "Trash";
     public static final String key_view_type = "isList";
+
+    public static final String key_reminder = "key_reminder";
+    public static final String key_note_id = "noteId";
+    public static final String key_startDate = "startDate";
+    public static final String key_color = "color";
 }

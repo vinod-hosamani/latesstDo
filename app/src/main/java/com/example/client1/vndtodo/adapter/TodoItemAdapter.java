@@ -46,9 +46,9 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
         return new TaskViewHolder(view);
     }
     @Override
-    public void onBindViewHolder(TaskViewHolder holder, int position)
+    public void onBindViewHolder(TaskViewHolder holder, final int position)
     {
-          final ToDoItemModel todoItemModel=todoList.get(position);
+        final ToDoItemModel todoItemModel=todoList.get(position);
         holder.linearLayoutTodo.setBackgroundColor(todoItemModel.getColor());
         holder.title.setText(todoItemModel.getTitle());
         holder.note.setText(todoItemModel.getNote());
@@ -60,9 +60,22 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
         {
             holder.reminderDate.setText("");
         }
+        if(noteClickListener!=null)
+        {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(noteClickListener!=null)
+                    {
+                        noteClickListener.onItemClick(position);
+                    }
+                }
+            });
+        }
     }
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return todoList.size();
     }
     public void setTodoList(List<ToDoItemModel> noteList)
@@ -94,6 +107,8 @@ public class TodoItemAdapter extends RecyclerView.Adapter<TodoItemAdapter.TaskVi
     {
         return todoList.get(pos);
     }
+
+
     public List<ToDoItemModel> getAllDataList()
     {
         return todoList;

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.client1.vndtodo.R;
 import com.example.client1.vndtodo.addNote.presenter.AddTodoPresenter;
 import com.example.client1.vndtodo.addNote.presenter.AddTodoPresenterInterface;
+import com.example.client1.vndtodo.constants.Constant;
 import com.example.client1.vndtodo.homescreen.model.ToDoItemModel;
 import com.example.client1.vndtodo.homescreen.ui.activity.HomeScreenActivity;
 import com.example.client1.vndtodo.registration.model.UserModel;
@@ -150,7 +151,7 @@ public class AddToDoNoteActivity extends AppCompatActivity implements AddToDoVie
                 if (add) {
                     saveDateToAdapter();
                 } else {
-                    //editTodoItem();
+                    editTodoItem();
                 }
                 finish();
                 break;
@@ -189,6 +190,27 @@ public class AddToDoNoteActivity extends AppCompatActivity implements AddToDoVie
         Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
     }
+    private void editTodoItem() {
+        UserModel userModel = session.getUserDetails();
+        model = new ToDoItemModel();
+
+        model.setTitle(editTextTitle.getText().toString());
+        model.setNote(editTextNote.getText().toString());
+        model.setReminderDate(textTextReminder.getText().toString());
+        model.setArchieved(false);
+        model.setDeleted(false);
+
+        Bundle bundle = getIntent().getExtras();
+
+        model.setNoteId(bundle.getInt(Constant.key_note_id));
+        model.setStartDate(bundle.getString(Constant.key_startDate));
+        model.setColor(color);
+
+        presenter.getResponseForUpdateTodoToServer(model, userModel.getId());
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        startActivity(intent);
+    }
+
 
     @Override
     public void addTodoSuccess(String message) {

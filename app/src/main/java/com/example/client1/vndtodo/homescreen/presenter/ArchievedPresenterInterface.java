@@ -17,4 +17,19 @@ public interface ArchievedPresenterInterface
     void getNoteListFailure(String message);
     void showProgressDialog(String message);
     void hideProgressDialog();
+
+    void moveToTrash(ToDoItemModel itemModel);
+    void moveToNotes(ToDoItemModel itemModel);
+    void moveToArchive(ToDoItemModel itemModel ,boolean flagForDelete);
+
+    void moveToTrashSuccess(String message);
+    void moveToTrashFailure(String message);
+
+    void moveToNotesSuccess(String message);
+    void moveToNotesFailure(String message);
+
+    void moveToArchiveSuccess(String message);
+    void moveToArchiveFailure(String message);
+
+
 }

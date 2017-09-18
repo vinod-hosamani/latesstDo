@@ -15,4 +15,14 @@ public interface ArchievedFragmentInterface
     void showProgressDialog(String message);
     void hideProgressDialog();
 
+    void moveToTrashSuccess(String message);
+    void moveToTrashFailure(String message);
+
+    void moveToNotesSuccess(String message);
+    void moveToNotesFailure(String message);
+
+    void moveToArchiveSuccess(String message);
+    void moveToArchiveFailure(String message);
+
+
 }

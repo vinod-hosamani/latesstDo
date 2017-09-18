@@ -38,4 +38,8 @@
     <string name="moving_to_note">moving to note</string>
     <string name="moving_to_note_success">moving to note success</string>
     <string name="moving_to_note_fail">moving to note fail</string>
+    <string name="loading">loading</string>
+    <string name="some_error">some errors</string>
+    <string name="moving_to_trash">moving to trash</string>
+    <string name="moving_to_trash_success">moving to trash</string>
 </resources>
